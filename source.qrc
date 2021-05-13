@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/qss">
+        <file>QSS/mainwindow.qss</file>
+    </qresource>
+    <qresource prefix="/image">
+        <file>images/end.png</file>
+        <file>images/start.png</file>
+        <file>images/refresh.png</file>
+        <file>images/down.png</file>
+        <file>images/esc.png</file>
+        <file>images/left.png</file>
+        <file>images/right.png</file>
+        <file>images/select.png</file>
+        <file>images/up.png</file>
+        <file>images/user.png</file>
+        <file>images/beep1.png</file>
+        <file>images/beep2.png</file>
+        <file>images/led1.png</file>
+        <file>images/led2.png</file>
+        <file>images/uart.png</file>
+        <file>images/wifi.png</file>
+    </qresource>
+</RCC>

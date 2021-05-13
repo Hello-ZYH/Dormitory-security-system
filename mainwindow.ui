@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1092</width>
+    <height>667</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">border-color: rgb(85, 170, 255);</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">border-color: rgb(85, 170, 255);</string>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="1" rowspan="2">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>-1</number>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QGroupBox" name="groupBox_recv">
+      <property name="maximumSize">
+       <size>
+        <width>350</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-color: rgb(85, 170, 255);</string>
+      </property>
+      <property name="title">
+       <string>操作日志</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <widget class="QTextBrowser" name="textBrowser_recv">
+         <property name="maximumSize">
+          <size>
+           <width>350</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border-color: rgb(85, 170, 255);</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QGroupBox" name="groupBox_function">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>150</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>350</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-color: rgb(85, 170, 255);</string>
+      </property>
+      <property name="title">
+       <string>功能区</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="2" column="0">
+        <widget class="QPushButton" name="btn_clear_recv">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(85, 170, 255);</string>
+         </property>
+         <property name="text">
+          <string>清空日志</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>                   端 口:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QComboBox" name="comboBox_com"/>
+       </item>
+       <item row="1" column="1">
+        <widget class="QPushButton" name="btn_refresh_com">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(85, 170, 255);</string>
+         </property>
+         <property name="text">
+          <string>刷新端口</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QPushButton" name="btn_save_library">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(85, 170, 255);</string>
+         </property>
+         <property name="text">
+          <string>保存日志</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QPushButton" name="btn_open_usart">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(85, 170, 255);</string>
+         </property>
+         <property name="text">
+          <string>打开串口</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1092</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
+   </property>
+   <widget class="QMenu" name="menu_usart">
+    <property name="title">
+     <string>串口</string>
+    </property>
+    <widget class="QMenu" name="menu_muitiFunction">
+     <property name="title">
+      <string>多功能区</string>
+     </property>
+     <addaction name="action_temp"/>
+     <addaction name="action_batterry"/>
+     <addaction name="action_line"/>
+     <addaction name="action_vr"/>
+     <addaction name="action_CPU"/>
+     <addaction name="action_pressure"/>
+     <addaction name="action_RFID"/>
+    </widget>
+    <addaction name="action_thread"/>
+    <addaction name="menu_muitiFunction"/>
+    <addaction name="separator"/>
+    <addaction name="action_refresh_com"/>
+    <addaction name="action_clear_library"/>
+    <addaction name="separator"/>
+    <addaction name="action_mysql"/>
+   </widget>
+   <widget class="QMenu" name="menuwifi">
+    <property name="title">
+     <string>wifi</string>
+    </property>
+    <addaction name="action_IP"/>
+    <addaction name="action_clear_recv"/>
+    <addaction name="action_PWM"/>
+   </widget>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>帮助</string>
+    </property>
+    <addaction name="action_order_use"/>
+    <addaction name="action_wifi_help"/>
+    <addaction name="action_com_help"/>
+   </widget>
+   <addaction name="menu_usart"/>
+   <addaction name="menuwifi"/>
+   <addaction name="menu"/>
+  </widget>
+  <action name="action_thread">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>开启总线程</string>
+   </property>
+  </action>
+  <action name="action_temp">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>开启温湿度传感器线程</string>
+   </property>
+  </action>
+  <action name="action_batterry">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>开启锂电池电压线程</string>
+   </property>
+  </action>
+  <action name="action_line">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>开启光线传感器线程</string>
+   </property>
+  </action>
+  <action name="action_vr">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>开启电位器线程</string>
+   </property>
+  </action>
+  <action name="action_CPU">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>开启CPU温度线程</string>
+   </property>
+  </action>
+  <action name="action_pressure">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>开启大气压传感器线程</string>
+   </property>
+  </action>
+  <action name="action_RFID">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>开启RFID卡线程</string>
+   </property>
+  </action>
+  <action name="action_refresh_com">
+   <property name="text">
+    <string>刷新端口</string>
+   </property>
+  </action>
+  <action name="action_clear_library">
+   <property name="text">
+    <string>清空日志</string>
+   </property>
+  </action>
+  <action name="action_IP">
+   <property name="text">
+    <string>重新获取IP</string>
+   </property>
+  </action>
+  <action name="action_clear_recv">
+   <property name="text">
+    <string>清空TCP接收</string>
+   </property>
+  </action>
+  <action name="action_order_use">
+   <property name="text">
+    <string>指令集</string>
+   </property>
+  </action>
+  <action name="action_wifi_help">
+   <property name="text">
+    <string>wifi使用说明</string>
+   </property>
+  </action>
+  <action name="action_com_help">
+   <property name="text">
+    <string>串口使用说明</string>
+   </property>
+  </action>
+  <action name="action_PWM">
+   <property name="text">
+    <string>清空PWM界面</string>
+   </property>
+  </action>
+  <action name="action_mysql">
+   <property name="text">
+    <string>连接sql server</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
