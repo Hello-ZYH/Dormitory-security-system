@@ -7,6 +7,7 @@
 
 
 bool MainWindow::MainTimerStatus=false;
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -19,12 +20,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     //每隔10秒挨个发送一次
     mytimer->setInterval(10000);
+
     //主界面打开串口会触发,发给选中并打开的串口名给usartForm界面，再usartForm界面打开串口QSerialPort
     connect(this,&MainWindow::sendPortName,usartForm,&UsartForm::recvPortName);
+
     //主界面关闭串口会触发，发给usartForm界面，让其关闭串口QSerialPort
     connect(this,&MainWindow::closeSerialPort,usartForm,&UsartForm::dealCloseSerialPort);
+
     //主线程的interval信号槽
     connect(mytimer,&QTimer::timeout,this,&MainWindow::dealMainThread);
+
     //子进程的任务执行信号
     connect(orderThread,&OrderThread::sendUartOrder,this,&MainWindow::dealThreadOrder);
 }
@@ -50,6 +55,7 @@ MainWindow::~MainWindow()
     delete pwmForm;
     delete mysqlForm;
     delete wifiForm;
+    delete cameraForm;
     delete ui;
 }
 
@@ -62,23 +68,25 @@ void MainWindow::initQSS()
     mysqlForm = new MysqlForm(this);
     pwmForm = new PWMForm(this,3.3,0);                            //给定最高电压3.3V,当前接受数据总数0条
     tcpServerForm = new Server(this);
+    cameraForm = new CameraForm(this);
 
     ui->tabWidget->addTab(usartForm,QString("串口控制界面"));
     ui->tabWidget->addTab(wifiForm,QString("wifi控制界面"));
     ui->tabWidget->addTab(mysqlForm,QString("数据库界面"));
     ui->tabWidget->addTab(pwmForm,QString("PWM调节界面"));
     ui->tabWidget->addTab(tcpServerForm,QString("TCP服务器"));
+    ui->tabWidget->addTab(cameraForm,QString("报警图片"));
     ui->tabWidget->setCurrentWidget(usartForm);
 
     //action
-    ui->action_vr->setChecked(false);
-    ui->action_CPU->setChecked(false);
-    ui->action_RFID->setChecked(false);
-    ui->action_line->setChecked(false);
+    //ui->action_vr->setChecked(false);
+    //ui->action_CPU->setChecked(false);
+    //ui->action_RFID->setChecked(false);
+    //ui->action_line->setChecked(false);
     ui->action_temp->setChecked(false);
     ui->action_thread->setChecked(false);
-    ui->action_batterry->setChecked(false);
-    ui->action_pressure->setChecked(false);
+    //ui->action_batterry->setChecked(false);
+    //ui->action_pressure->setChecked(false);
 
     //btn
     ui->btn_save_library->setProperty("level","normal");
@@ -92,7 +100,7 @@ void MainWindow::initQSS()
     QString qss = file.readAll();
     setStyleSheet(qss);
     file.close();
-    setWindowTitle(QString("宿舍智能安防系统"));
+    setWindowTitle(QString("宿舍智能物联网系统"));
 }
 
 
@@ -120,8 +128,10 @@ void MainWindow::ListenAction()
     /****************************usartFrom signals*********************************************/
     //监听usartForm发来的采集到的可用端口号序列，更新Mainwindow的端口QCombox
     connect(usartForm,SIGNAL(sendSerialList(QStringList&)),this,SLOT(recvSerialList(QStringList&)));
+
     //监听usartform发来的串口open函数的信息
     connect(usartForm,&UsartForm::SerialPortStatus,this,&MainWindow::TipsSerialPortStatus);
+
     //usart发来的数据同步到数据库和textBrowser上
     connect(usartForm,&UsartForm::sendSTM32Data,this,&MainWindow::dealSTM32Data);
 
@@ -134,6 +144,7 @@ void MainWindow::ListenAction()
     /****************************tcpServer signals*********************************************/
     //tcp发来的32数据发送给wifi界面
     connect(tcpServerForm,&Server::sendStm32Data,wifiForm,&WifiForm::dealStm32Data);
+
     //tcp发来的32的pwm数据发送给pwm界面
     connect(tcpServerForm,&Server::sendPWMData,pwmForm,&PWMForm::dealPWMData);
 
@@ -189,14 +200,14 @@ void MainWindow::ListenAction()
             mytimer->stop();
             orderThread->stop();
             //取消子线程的选中状态
-            ui->action_vr->setChecked(false);
-            ui->action_CPU->setChecked(false);
-            ui->action_RFID->setChecked(false);
-            ui->action_line->setChecked(false);
+            //ui->action_vr->setChecked(false);
+            // ui->action_CPU->setChecked(false);
+            // ui->action_RFID->setChecked(false);
+            //ui->action_line->setChecked(false);
             ui->action_temp->setChecked(false);
             ui->action_thread->setChecked(false);
-            ui->action_batterry->setChecked(false);
-            ui->action_pressure->setChecked(false);
+            //ui->action_batterry->setChecked(false);
+            //ui->action_pressure->setChecked(false);
         }
     });
     usartForm->initSerialPort();
@@ -209,6 +220,7 @@ void MainWindow::initMysql()
 {
     stm32Mysql::initMysql();
     mysqlForm->initMysqlData();
+
     if(!stm32Mysql::getConnectStatus())
     {
        QMessageBox::warning(this,"数据库提示",stm32Mysql::getOpenMysqlError());
@@ -312,8 +324,9 @@ void MainWindow::on_btn_clear_recv_clicked()
 void MainWindow::dealSTM32Data(QString data)
 {
     ui->textBrowser_recv->append(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss:zzz")+"#"+data);
+
     if(tcpServerForm->getTcpListenStatus())
-         mysqlForm->addDataToLibrary(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss:zzz"),data,"wifi");
+        mysqlForm->addDataToLibrary(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss:zzz"),data,"wifi");
     else
         mysqlForm->addDataToLibrary(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss:zzz"),data,"串口");
 }
@@ -333,34 +346,34 @@ void MainWindow::dealMainThread()
 
     //总线程:负责采集子线程开关状态并加入线程的任务Task堆栈中
     if(!orderThread->isListEmpty()) return ;
-    if(ui->action_batterry->isChecked())
-    {
-        orderThread->addTask(new Task(UsartForm::orderList.at(6),"6"));
-    }
+//    if(ui->action_batterry->isChecked())
+//    {
+//        orderThread->addTask(new Task(UsartForm::orderList.at(6),"6"));
+//    }
     if(ui->action_temp->isChecked())
     {
         orderThread->addTask(new Task(UsartForm::orderList.at(7),"7"));
     }
-    if(ui->action_line->isChecked())
-    {
-        orderThread->addTask(new Task(UsartForm::orderList.at(8),"8"));
-    }
-    if(ui->action_pressure->isChecked())
-    {
-        orderThread->addTask(new Task(UsartForm::orderList.at(9),"9"));
-    }
-    if(ui->action_vr->isChecked())
-    {
-        orderThread->addTask(new Task(UsartForm::orderList.at(10),"10"));
-    }
-    if(ui->action_CPU->isChecked())
-    {
-        orderThread->addTask(new Task(UsartForm::orderList.at(11),"11"));
-    }
-    if(ui->action_RFID->isChecked())
-    {
-        orderThread->addTask(new Task(UsartForm::orderList.at(12),"12"));
-    }
+//    if(ui->action_line->isChecked())
+//    {
+//        orderThread->addTask(new Task(UsartForm::orderList.at(8),"8"));
+//    }
+//    if(ui->action_pressure->isChecked())
+//    {
+//        orderThread->addTask(new Task(UsartForm::orderList.at(9),"9"));
+//    }
+//    if(ui->action_vr->isChecked())
+//    {
+//        orderThread->addTask(new Task(UsartForm::orderList.at(10),"10"));
+//    }
+//    if(ui->action_CPU->isChecked())
+//    {
+//        orderThread->addTask(new Task(UsartForm::orderList.at(11),"11"));
+//    }
+//    if(ui->action_RFID->isChecked())
+//    {
+//        orderThread->addTask(new Task(UsartForm::orderList.at(12),"12"));
+//    }
 }
 
 

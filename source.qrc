@@ -19,5 +19,19 @@
         <file>images/led2.png</file>
         <file>images/uart.png</file>
         <file>images/wifi.png</file>
+        <file>images/lock1.png</file>
+        <file>images/nbeep1.png</file>
+        <file>images/tcp1.png</file>
+        <file>images/tcp2.png</file>
+        <file>images/send1.png</file>
+        <file>images/send2.png</file>
+        <file>images/cloud2.png</file>
+        <file>images/nbeep2.png</file>
+        <file>images/cloud1.png</file>
+        <file>images/fish.jpg</file>
+        <file>images/window.png</file>
+        <file>images/test1.jpg</file>
+        <file>images/test2.jpg</file>
+        <file>images/test3.jpg</file>
     </qresource>
 </RCC>

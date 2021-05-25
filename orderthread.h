@@ -21,9 +21,13 @@ public:
     void sendData();
     QString getOrder(){return m_order;}
     QString getID(){return m_id;}
+
 private:
     QString m_order,m_id;
 };
+
+
+
 class OrderThread : public QThread
 {
     Q_OBJECT
@@ -41,6 +45,7 @@ public:
             return true;
         return false;
     }
+
 private:
     QList<Task *> m_taskList;  //任务列表
     QMutex m_mutex;

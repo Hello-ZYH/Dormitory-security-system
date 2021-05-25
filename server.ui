@@ -35,7 +35,7 @@
       <item row="0" column="0" rowspan="4">
        <widget class="QTextEdit" name="textEdit_send">
         <property name="styleSheet">
-         <string notr="true">border-color: rgb(85, 170, 255);</string>
+         <string notr="true"/>
         </property>
        </widget>
       </item>
@@ -48,7 +48,20 @@
          </size>
         </property>
         <property name="text">
-         <string>tcp单发</string>
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="source.qrc">
+          <normaloff>:/image/images/send1.png</normaloff>:/image/images/send1.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>50</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -67,7 +80,20 @@
          </font>
         </property>
         <property name="text">
-         <string>tcp群发</string>
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="source.qrc">
+          <normaloff>:/image/images/send2.png</normaloff>:/image/images/send2.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>50</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -109,77 +135,13 @@
       </size>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-color: rgb(85, 170, 255);</string>
+      <string notr="true"/>
      </property>
      <property name="title">
       <string>在线列表  当前人数:</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_5">
-      <item row="1" column="2">
-       <widget class="QGroupBox" name="groupBox_connect_tool">
-        <property name="styleSheet">
-         <string notr="true">border-color: rgb(85, 170, 255);</string>
-        </property>
-        <property name="title">
-         <string>操作区</string>
-        </property>
-        <layout class="QGridLayout" name="gridLayout_2">
-         <item row="0" column="1">
-          <widget class="QPushButton" name="btn_switch">
-           <property name="font">
-            <font>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>启动服务</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="3">
-          <spacer name="horizontalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item row="0" column="2">
-          <widget class="QPushButton" name="btn_clear_recv">
-           <property name="font">
-            <font>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>清空接收</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item row="0" column="2">
+      <item row="0" column="1">
        <widget class="QGroupBox" name="groupBox_connect">
         <property name="styleSheet">
          <string notr="true">border-color: rgb(85, 170, 255);</string>
@@ -248,24 +210,101 @@
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">border-color: rgb(85, 170, 255);</string>
+         <string notr="true"/>
         </property>
        </widget>
       </item>
-      <item row="0" column="1" rowspan="2">
-       <widget class="Line" name="line">
-        <property name="minimumSize">
-         <size>
-          <width>10</width>
-          <height>0</height>
-         </size>
-        </property>
+      <item row="1" column="1">
+       <widget class="QGroupBox" name="groupBox_connect_tool">
         <property name="styleSheet">
          <string notr="true">border-color: rgb(85, 170, 255);</string>
         </property>
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
+        <property name="title">
+         <string>操作区</string>
         </property>
+        <layout class="QGridLayout" name="gridLayout_2">
+         <item row="0" column="1">
+          <widget class="QPushButton" name="btn_switch">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="source.qrc">
+             <normaloff>:/image/images/cloud2.png</normaloff>:/image/images/cloud2.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>100</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="checkable">
+            <bool>false</bool>
+           </property>
+           <property name="flat">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3">
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="0" column="2">
+          <widget class="QPushButton" name="btn_clear_recv">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="source.qrc">
+             <normaloff>:/image/images/tcp2.png</normaloff>:/image/images/tcp2.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>100</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="flat">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
        </widget>
       </item>
      </layout>
@@ -295,7 +334,7 @@
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">border-color: rgb(85, 170, 255);</string>
+         <string notr="true"/>
         </property>
        </widget>
       </item>
@@ -304,6 +343,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="source.qrc"/>
+ </resources>
  <connections/>
 </ui>

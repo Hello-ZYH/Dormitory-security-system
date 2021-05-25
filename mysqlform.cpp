@@ -30,7 +30,7 @@ MysqlForm::~MysqlForm()
 void MysqlForm::addDataToLibrary(QString time, QString thing, QString operate)
 {
     QSqlQuery query;
-    QString sql_str = QString("insert into data values(0,'%1','%2','%3')").arg(time,thing,operate);
+    QString sql_str = QString("insert into data values(1,'%1','%2','%3')").arg(time,thing,operate);
     query.exec(sql_str);
     //RefreshData();
 }
@@ -72,7 +72,7 @@ void MysqlForm::RefreshData()
     QStringList headers;
 
     headers<<"序号"<<"时间"<<"事件"<<"操作类型";
-    sql_str = QString("select count(*) as count from data"); //+QString(" "+fliter.arg(flitername));
+    sql_str = QString("select count(*) as count from data");//+QString(" "+fliter.arg(flitername));
     query.exec(sql_str);
     query.next();
 
@@ -81,7 +81,7 @@ void MysqlForm::RefreshData()
     ui->tableWidget->setColumnCount(headers.count());
     ui->tableWidget->setHorizontalHeaderLabels(headers);
 
-    sql_str = QString("select * from data");                //+QString(" "+fliter.arg(flitername));
+    sql_str = QString("select * from data");              // +QString(" "+fliter.arg(flitername));
     query.exec(sql_str);
 
     int i=0;

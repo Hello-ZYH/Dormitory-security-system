@@ -15,11 +15,13 @@
 #include "pwmform.h"
 #include "server.h"
 #include "orderthread.h"
+#include "cameraform.h"
 
 
 QT_BEGIN_NAMESPACE
 enum ThreadType{Thread_TempHumi,Thread_Battery,Thread_LightLine,\
                Thread_Vr,Thread_Cpu,Thread_Pressure,Thread_RFID};
+
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
@@ -33,6 +35,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     static bool MainTimerStatus;//存储总窗体的总线程状态,供其他widget获取
+
 private slots:
     void on_btn_open_usart_clicked();
     void recvSerialList(QStringList& serialList);
@@ -43,6 +46,7 @@ private slots:
     void dealSTM32Data(QString data);
     void dealMainThread();
     void dealThreadOrder(QString order,QString id);
+
 private:
     Ui::MainWindow *ui;
     UsartForm* usartForm;
@@ -51,8 +55,10 @@ private:
     PWMForm* pwmForm;
     Server* tcpServerForm;
     OrderThread* orderThread;
+    CameraForm* cameraForm;
     QTimer* mytimer;
     QString comHelpContent,wifiHelpContent,orderHelpContent;
+
 private:
     void initQSS();
     void initUsart();

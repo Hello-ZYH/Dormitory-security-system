@@ -191,8 +191,7 @@ void Server::Process_Client_Connect()
     ui->listWidget->addItem(new QListWidgetItem(QIcon(":/image/images/user.png"),QString("[%1:%2]").arg(socket->peerAddress().toString()).arg(socket->peerPort())));
 
     //更新接受栏
-    QString msg = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss:zzz")+"#"
-            +QString("[%1:%2]连接成功").arg(socket->peerAddress().toString()).arg(socket->peerPort());
+    QString msg = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss:zzz")+"#"+QString("[%1:%2]连接成功").arg(socket->peerAddress().toString()).arg(socket->peerPort());
     ui->textBrowser_recv->append(msg);
 
     //发送信息给客户端
@@ -209,8 +208,7 @@ void Server::Process_Client_Connect()
 void Server::Process_Client_Send()
 {
     QTcpSocket* socket = (QTcpSocket*)sender();
-    QString msg = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss:zzz")+"#"
-            +QString("[%1:%2]").arg(socket->peerAddress().toString())
+    QString msg = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss:zzz")+"#"+QString("[%1:%2]").arg(socket->peerAddress().toString())
                                  .arg(socket->peerPort());
     QString tcpMsg=socket->readAll();
 
@@ -300,9 +298,8 @@ void Server::on_btn_send_one_clicked()
         }
     }
 
-    QString msg = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss:zzz")+"#"
-            +QString("[%1:%2:%3]").arg(tcpAddress.toString())
-                                 .arg(tcpPort).arg(QString("单发"))+ui->textEdit_send->toPlainText();
+    QString msg = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss:zzz")+"#"+QString("[%1:%2:%3]").arg(tcpAddress.toString())
+                                                                                                            .arg(tcpPort).arg(QString("单发"))+ui->textEdit_send->toPlainText();
     MysqlForm::addDataToLibrary(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss:zzz"),ui->textEdit_send->toPlainText(),"wifi");
     ui->textBrowser_recv->append(msg.toUtf8());
     ui->textEdit_send->clear();
@@ -326,9 +323,8 @@ void Server::dealWifiOrder(QString order)
             }
         }
     }
-    QString msg=QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss:zzz")+"#"
-            +QString("[%1:%2:%3]").arg(tcpAddress.toString())
-                                 .arg(tcpPort).arg(QString("单发"))+order;
+    QString msg=QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss:zzz")+"#"+QString("[%1:%2:%3]").arg(tcpAddress.toString())
+                                                                                                          .arg(tcpPort).arg(QString("单发"))+order;
     ui->textBrowser_recv->append(msg.toUtf8());
     MysqlForm::addDataToLibrary(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss:zzz"),order,"wifi");
 }

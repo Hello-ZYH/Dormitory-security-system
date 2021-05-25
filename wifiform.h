@@ -28,29 +28,31 @@ private slots:
 
     void on_btn_humi_clicked();
 
-    void on_btn_light_clicked();
+    void on_btn_lock_clicked();
 
-    void on_btn_batterry_clicked();
+    //void on_btn_light_clicked();
 
-    void on_btn_vr_clicked();
+    //void on_btn_batterry_clicked();
 
-    void on_btn_pressure_clicked();
+    //void on_btn_vr_clicked();
 
-    void on_btn_cpu_clicked();
+    //void on_btn_pressure_clicked();
 
-    void on_btn_rfid_clicked();
+    //void on_btn_cpu_clicked();
 
-    void on_btn_up_clicked();
+    //void on_btn_rfid_clicked();
 
-    void on_btn_down_clicked();
+    //void on_btn_up_clicked();
 
-    void on_btn_left_clicked();
+    //void on_btn_down_clicked();
 
-    void on_btn_right_clicked();
+    //void on_btn_left_clicked();
 
-    void on_btn_esc_clicked();
+    //void on_btn_right_clicked();
 
-    void on_btn_select_clicked();
+    //void on_btn_esc_clicked();
+
+    //void on_btn_select_clicked();
 private:
     Ui::WifiForm *ui;
     QStringList orderList;

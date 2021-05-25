@@ -159,12 +159,6 @@
       <string>多功能区</string>
      </property>
      <addaction name="action_temp"/>
-     <addaction name="action_batterry"/>
-     <addaction name="action_line"/>
-     <addaction name="action_vr"/>
-     <addaction name="action_CPU"/>
-     <addaction name="action_pressure"/>
-     <addaction name="action_RFID"/>
     </widget>
     <addaction name="action_thread"/>
     <addaction name="menu_muitiFunction"/>

@@ -15,6 +15,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    cameraform.cpp \
     main.cpp \
     mainwindow.cpp \
     mysqlform.cpp \
@@ -26,6 +27,7 @@ SOURCES += \
     wifiform.cpp
 
 HEADERS += \
+    cameraform.h \
     mainwindow.h \
     mysqlform.h \
     orderthread.h \
@@ -36,6 +38,7 @@ HEADERS += \
     wifiform.h
 
 FORMS += \
+    cameraform.ui \
     mainwindow.ui \
     mysqlform.ui \
     pwmform.ui \
