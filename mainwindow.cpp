@@ -55,7 +55,7 @@ MainWindow::~MainWindow()
     delete pwmForm;
     delete mysqlForm;
     delete wifiForm;
-    delete cameraForm;
+    //delete cameraForm;
     delete ui;
 }
 
@@ -68,15 +68,17 @@ void MainWindow::initQSS()
     mysqlForm = new MysqlForm(this);
     pwmForm = new PWMForm(this,3.3,0);                            //给定最高电压3.3V,当前接受数据总数0条
     tcpServerForm = new Server(this);
-    cameraForm = new CameraForm(this);
+    //cameraForm = new CameraForm(this);
+    //pictureForm = new PictureForm(this);
 
     ui->tabWidget->addTab(usartForm,QString("串口控制界面"));
     ui->tabWidget->addTab(wifiForm,QString("wifi控制界面"));
     ui->tabWidget->addTab(mysqlForm,QString("数据库界面"));
     ui->tabWidget->addTab(pwmForm,QString("PWM调节界面"));
     ui->tabWidget->addTab(tcpServerForm,QString("TCP服务器"));
-    ui->tabWidget->addTab(cameraForm,QString("报警图片"));
-    ui->tabWidget->setCurrentWidget(usartForm);
+    //ui->tabWidget->addTab(cameraForm,QString("报警图片"));
+    //ui->tabWidget->addTab(pictureForm,QString("图片"));
+    //ui->tabWidget->setCurrentWidget(usartForm);
 
     //action
     //ui->action_vr->setChecked(false);
@@ -142,11 +144,16 @@ void MainWindow::ListenAction()
 
 
     /****************************tcpServer signals*********************************************/
-    //tcp发来的32数据发送给wifi界面
+    //tcp发来的32的数据发送给wifi界面
     connect(tcpServerForm,&Server::sendStm32Data,wifiForm,&WifiForm::dealStm32Data);
 
     //tcp发来的32的pwm数据发送给pwm界面
-    connect(tcpServerForm,&Server::sendPWMData,pwmForm,&PWMForm::dealPWMData);
+    //connect(tcpServerForm,&Server::sendPWMData,pwmForm,&PWMForm::dealPWMData);
+
+    //tcp发来的32的数据发送给camera界面
+    //connect(tcpServerForm,&Server::sendCameraData,cameraForm,&CameraForm::dealStm32Data);
+    //connect(tcpServerForm,&Server::sendPictureData,pictureForm,&PictureForm::);
+    //connect(tcpServerForm, &Server::sendgetImageData,pictureForm, &PictureForm::getImage);
 
 
     /****************************MainWindow signals*********************************************/
@@ -352,8 +359,12 @@ void MainWindow::dealMainThread()
 //    }
     if(ui->action_temp->isChecked())
     {
-        orderThread->addTask(new Task(UsartForm::orderList.at(7),"7"));
+        orderThread->addTask(new Task(UsartForm::orderList.at(6),"6"));
     }
+//    if(ui->action_temp->isChecked())
+//    {
+//        orderThread->addTask(new Task(UsartForm::orderList.at(7),"7"));
+//    }
 //    if(ui->action_line->isChecked())
 //    {
 //        orderThread->addTask(new Task(UsartForm::orderList.at(8),"8"));
@@ -383,5 +394,6 @@ void MainWindow::dealThreadOrder(QString order,QString id)
 {
     //采集子线程的执行任务信号，将任务的指令和id号发给串口界面执行
     usartForm->writeOrderToSerialPort(order,id);
+//    wifiForm->writeOrder(order,id);
 }
 

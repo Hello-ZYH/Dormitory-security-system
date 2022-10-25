@@ -36,8 +36,10 @@
         </property>
         <property name="font">
          <font>
-          <weight>75</weight>
-          <bold>true</bold>
+          <family>Adobe Arabic</family>
+          <pointsize>22</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
          </font>
         </property>
         <property name="text">
@@ -90,8 +92,10 @@
         </property>
         <property name="font">
          <font>
-          <weight>75</weight>
-          <bold>true</bold>
+          <family>Adobe Arabic</family>
+          <pointsize>20</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
          </font>
         </property>
         <property name="text">
@@ -254,7 +258,7 @@
      </property>
      <layout class="QGridLayout" name="gridLayout_5">
       <item row="0" column="0">
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="btn_window">
         <property name="text">
          <string/>
         </property>
@@ -287,6 +291,9 @@
      <layout class="QGridLayout" name="gridLayout_4">
       <item row="1" column="0">
        <widget class="QPushButton" name="btn_lock">
+        <property name="styleSheet">
+         <string notr="true">border-color: rgb(85, 170, 255);</string>
+        </property>
         <property name="text">
          <string/>
         </property>

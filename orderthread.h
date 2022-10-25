@@ -16,6 +16,7 @@
 //单个任务类
 class Task
 {
+//    Q_OBJECT
 public:
     Task(QString order,QString id);
     void sendData();
@@ -24,6 +25,9 @@ public:
 
 private:
     QString m_order,m_id;
+
+//signals:
+//    void sendOrder(QString order);
 };
 
 

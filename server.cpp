@@ -4,6 +4,7 @@
 
 
 
+//构造函数
 Server::Server(QWidget *parent) : QWidget(parent), ui(new Ui::Server)
 {
     ui->setupUi(this);
@@ -12,6 +13,7 @@ Server::Server(QWidget *parent) : QWidget(parent), ui(new Ui::Server)
 
 
 
+//析构函数
 Server::~Server()
 {
     delete ui;
@@ -47,6 +49,7 @@ void Server::CloseTcpServer()
 void Server::LoadSetting()
 {
     tcpListenStatus=false;
+
     //widget
     setWindowTitle(QString("TCP并发服务端"));
     resize(QSize(CURSIZE));
@@ -64,8 +67,8 @@ void Server::LoadSetting()
     ui->lineEdit_PORT->setText(QString::number(tcpPort));
 
     //groupbox
-    onlineCount=0;
-    onlineTitle=QString("在线列表  当前人数:%1").arg(onlineCount);
+    onlineCount = 0;
+    onlineTitle = QString("在线列表  当前人数:%1").arg(onlineCount);
     ui->groupBox_online->setTitle(onlineTitle);
 
     connect(tcpServer,&QTcpServer::newConnection,this,&Server::Process_Client_Connect);
@@ -76,10 +79,15 @@ void Server::LoadSetting()
 //连接到TCP服务器
 void Server::ConnectToTcp()
 {
-    tcpPort=ui->lineEdit_PORT->text().toUInt();
+    tcpPort = ui->lineEdit_PORT->text().toUInt();
     tcpAddress.setAddress(ui->comboBox_ip->currentText());
     qDebug()<<"state:"<<tcpServer->isListening();
-    if(tcpAddress.toString().isEmpty()) return ;
+
+    if(tcpAddress.toString().isEmpty())
+    {
+        return;
+    }
+
     if(tcpServer->listen(tcpAddress,tcpPort))
     {
         qDebug()<<"state connect:"<<tcpServer->isListening();
@@ -131,10 +139,15 @@ void Server::DisconnectFromTcp()
 //获取一个当前主机可用IP地址
 QHostAddress Server::getLocalHostAddress()
 {
+    //comboBox菜单清空
     ui->comboBox_ip->clear();
+
+    //通过QHostAddress获得IP
     QHostAddress list;
     list.clear();
+
     QList<QHostAddress> list_ip = QNetworkInterface::allAddresses();
+
     foreach(QHostAddress address,list_ip)
     {
         if(address.protocol()==QAbstractSocket::IPv4Protocol)
@@ -181,12 +194,12 @@ void Server::on_comboBox_ip_activated(const QString &arg1)
 void Server::Process_Client_Connect()
 {
     //获取新的连接
-    QTcpSocket *socket=tcpServer->nextPendingConnection();
+    QTcpSocket *socket = tcpServer->nextPendingConnection();
     tcpSocket.append(socket);
 
     //更新listwidget和GroupBox_online
     onlineCount++;
-    onlineTitle=QString("在线列表  当前人数:%1").arg(onlineCount);
+    onlineTitle = QString("在线列表  当前人数:%1").arg(onlineCount);
     ui->groupBox_online->setTitle(onlineTitle);
     ui->listWidget->addItem(new QListWidgetItem(QIcon(":/image/images/user.png"),QString("[%1:%2]").arg(socket->peerAddress().toString()).arg(socket->peerPort())));
 
@@ -195,8 +208,8 @@ void Server::Process_Client_Connect()
     ui->textBrowser_recv->append(msg);
 
     //发送信息给客户端
-    QString clientMsg=QString("server:connect success!");
-    socket->write(clientMsg.toUtf8());
+    //QString clientMsg=QString("server:connect success!");
+    //socket->write(clientMsg.toUtf8());
     connect(socket,&QTcpSocket::readyRead,this,&Server::Process_Client_Send);
     connect(socket,&QTcpSocket::disconnected,this,&Server::Process_Client_Disconnect);
 }
@@ -208,25 +221,35 @@ void Server::Process_Client_Connect()
 void Server::Process_Client_Send()
 {
     QTcpSocket* socket = (QTcpSocket*)sender();
+
     QString msg = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss:zzz")+"#"+QString("[%1:%2]").arg(socket->peerAddress().toString())
-                                 .arg(socket->peerPort());
-    QString tcpMsg=socket->readAll();
+                                              .arg(socket->peerPort());
+
+    QString tcpMsg = socket->readAll();
+
 
     //发给wifi界面
     emit sendStm32Data(tcpMsg.toUtf8());
-    //发给pwm界面
-    if(tcpMsg.at(0)=="p"&&tcpMsg.at(tcpMsg.length()-1)=="m")
-    {
-        emit sendPWMData(tcpMsg);
-    }
+
+//    //发给pwm界面
+//    if(tcpMsg.at(0)=="p"&&tcpMsg.at(tcpMsg.length()-1)=="m")
+//    {
+//        emit sendPWMData(tcpMsg);
+//    }
+
+    //发给Camera界面
+    //emit sendCameraData(tcpMsg);
+    //emit sendgetImageData(tcpMsg.toUtf8());
+
+
 
     msg+=tcpMsg;
     ui->textBrowser_recv->append(msg.toUtf8());
     MysqlForm::addDataToLibrary(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss:zzz"),tcpMsg,"wifi");
 
     //回发  同意将客户端发来的消息回发给客户端，核实数据准确性
-    msg=QStringLiteral("server recv:%1").arg(tcpMsg);
-    socket->write(msg.toUtf8());
+    //msg=QStringLiteral("server recv:%1").arg(tcpMsg);
+    //socket->write(msg.toUtf8());
 }
 
 
@@ -272,12 +295,13 @@ void Server::on_btn_send_clicked()
     {
         tcpSocket.at(i)->write(ui->textEdit_send->toPlainText().toUtf8());
     }
+
     QString msg = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss:zzz")+"#"+QString("[%1:%2:%3]")
                                               .arg(tcpAddress.toString())
                                               .arg(tcpPort)
                                               .arg(QString("群发"))+ui->textEdit_send->toPlainText() ;
     ui->textBrowser_recv->append(msg.toUtf8());
-     ui->textEdit_send->clear();
+    ui->textEdit_send->clear();
 }
 
 
@@ -314,7 +338,7 @@ void Server::dealWifiOrder(QString order)
     QList<QListWidgetItem*> selectedItems=ui->listWidget->selectedItems();
     foreach(QListWidgetItem* item,selectedItems)
     {
-        for(int i=0;i<tcpSocket.count();i++)
+        for(int i=0; i<tcpSocket.count(); i++)
         {
             QString info =QString("[%1:%2]").arg(tcpSocket.at(i)->peerAddress().toString()).arg(tcpSocket.at(i)->peerPort());
             if(info==item->text())

@@ -70,8 +70,11 @@ private:
     void ConnectToTcp();
     void DisconnectFromTcp();
     QHostAddress getLocalHostAddress();
+
 signals:
     void sendStm32Data(QString data);
-    void sendPWMData(QString data);
+    //void sendPWMData(QString data);
+    //void sendCameraData(QString data);
+    void sendgetImageData(QString data);
 };
 #endif // SERVER_H

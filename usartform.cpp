@@ -8,12 +8,12 @@ led2亮 ：    "a3b"         成功："c3sd"                               失�
 led2灭 ：    "a4b"         成功："c4sd"                               失败："c4fd"
 beep响 ：    "a5b"         成功："c5sd"                               失败："c5fd"
 beep灭 ：    "a6b"         成功："c6sd"                               失败："c6fd"
-锂电池电压：  "a7b"         成功："cA4.04vd"                           失败："cAfd"
-温湿度传感器： "a8b"         成功：温度"cB24.5Cd"       湿度"cC45%d"     失败：温度"cBfd"   湿度"cCfd"
-光线传感器：  "a9b"         成功："cDl3456luxd"                        失败："cDfd"
-大气压传感器： "aAb"         成功："cE3456KPad"                         失败："cEfd"
-电位器：      "aBb"         成功："cF3.1vd"                            失败："cFfd"
-cpu温度：     "aCb"         成功："cG34.5Cd"                           失败："cGfd"
+获取温度：    "a7b"         成功："cB24.5Cd"                           失败："cBfd"
+获取湿度：    "a8b"         成功："cC45%d"                             失败："cCfd"
+远程开锁：    "a9b"         成功："c9sd"                               失败："c9fd"
+远程开窗：    "aAb"         成功："cAsd"                               失败："cAfd"
+电位器：      "aBb"         成功："cF3.1vd"                           失败："cFfd"
+cpu温度：    "aCb"         成功："cG34.5Cd"                           失败："cGfd"
 RFID卡：     "aDb"         成功："cH34.5Cd"                           失败："cHfd"
 查询按键："aEb"
 成功："cIupd"
@@ -60,8 +60,8 @@ void UsartForm::initOrderList()
                 <<"a6b"
                 <<"a7b"
                 <<"a8b"
-                <<"a9b";
-                //<<"aAb"
+                <<"a9b"
+                <<"aAb";
                 //<<"aBb"
                 //<<"aCb"
                 //<<"aDb";
@@ -76,7 +76,8 @@ void UsartForm::initOrderList()
                 <<"关闭蜂鸣器"  
                 <<"获取温度"
                 <<"获取湿度"
-                <<"远程开锁";
+                <<"远程开锁"
+                <<"远程开窗";
                 //<<"获取锂电池电压"
                 //<<"获取光线亮度"
                 //<<"获取大气压压强"
@@ -410,6 +411,16 @@ void UsartForm::on_btn_lock_clicked()
     serialPort->write(orderList.at(8).toUtf8());
     emit sendSTM32Data(orderList.at(8).toUtf8());
     ui->btn_lock->setIcon(QIcon(":/image/images/lock1.png"));
+}
+
+
+
+//远程开窗
+void UsartForm::on_btn_window_clicked()
+{
+    currentWidgetName=orderList.at(9).toUtf8();
+    serialPort->write(orderList.at(9).toUtf8());
+    emit sendSTM32Data(orderList.at(9).toUtf8());
 }
 
 

@@ -24,26 +24,48 @@ WifiForm::~WifiForm()
 //处理stm32数据
 void WifiForm::dealStm32Data(QString stm32Data)
 {
-    qDebug()<<stm32Data<<type_index;
-    switch(type_index)
+//    qDebug()<<stm32Data<<type_index;
+//    switch(type_index)
+
+    qDebug()<<stm32Data.at(1).toLatin1();
+    switch (stm32Data.at(1).toLatin1())
     {
+    case 'B':
+    {
+        //cB24.5Cd   cC45%d
+        QString data = stm32Data.mid(2,stm32Data.length()-4);//2个包头，1个包尾
+        ui->lcdNumber_temp->display(data);
+    }break;
+
+    case 'C':
+    {
+        //cB24.5Cd   cC45%d
+        QString data = stm32Data.mid(2,stm32Data.length()-4);//2个包头，1个包尾
+        ui->lcdNumber_humi->display(data);
+    }break;
+
+    default:break;
+
 //    case 6:
 //    {
 //        //cA4.04vd
 //        QString data = stm32Data.mid(2,stm32Data.length()-3);//2个包头，1个包尾
 //        ui->lcdNumber_battery->display(data);
 //    }break;
-    case 6:
-    {
-        //cB24.5Cd   cC45%d
-        static int count=0;
-        count++;
-        QString data = stm32Data.mid(2,stm32Data.length()-3);//2个包头，1个包尾
-        if(count%2!=0)
-            ui->lcdNumber_temp->display(data);
-        else
-            ui->lcdNumber_humi->display(data);
-    }break;
+
+//    case 7:
+//    {
+//        //cB 24.5C d         cC 45.1% d
+//        static int count=0;
+//        count++;
+//        QString data = stm32Data.mid(2,stm32Data.length()-3);//2个包头，1个包尾
+
+//        if(count%2!=0)
+//            ui->lcdNumber_temp->display(data);
+//        else
+//            ui->lcdNumber_humi->display(data);
+//    }break;
+
 //    case 8:
 //    {
 //        //cDl3456luxd
@@ -74,17 +96,25 @@ void WifiForm::dealStm32Data(QString stm32Data)
 //        QString data = stm32Data.mid(2,stm32Data.length()-3);//2个包头，1个包尾
 //        ui->label_rfid->setText(data);
 //    } break;
-    default:break;
     }
-
 }
+
+
+
+//void WifiForm::writeOrder(QString order,QString id)
+//{
+////        currentWidgetName=orderList.at(id.toInt()).toUtf8();
+////        serialPort->write(order.toUtf8());
+//      emit sendOrder(orderList.at(id.toInt()).toUtf8());
+////    emit sendOrder(QString(UsartForm::orderList.at(6)));
+////    emit sendOrder(QString(UsartForm::orderList.at(7)));
+//}
 
 
 
 //LED1
 void WifiForm::on_checkBox_led1_stateChanged(int arg1)
 {
-
     if(arg1>0)
     {
         type_index=0;
@@ -175,6 +205,15 @@ void WifiForm::on_btn_lock_clicked()
 {
     type_index=8;
     emit sendOrder(QString(UsartForm::orderList.at(8)));
+}
+
+
+
+//远程开窗
+void WifiForm::on_btn_window_clicked()
+{
+    type_index=9;
+    emit sendOrder(QString(UsartForm::orderList.at(9)));
 }
 
 

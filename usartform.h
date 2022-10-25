@@ -29,6 +29,8 @@ public:
     ~UsartForm();
     void writeOrderToSerialPort(QString order,QString id);
 
+    //static QStringList orderList,funcList;
+
 private:
     Ui::UsartForm *ui;
     QSerialPort* serialPort;
@@ -58,6 +60,8 @@ private slots:
     void on_checkBox_beep_stateChanged(int arg1);
 
     void on_btn_lock_clicked();
+
+    void on_btn_window_clicked();
 
     void on_btn_temp_clicked();
 

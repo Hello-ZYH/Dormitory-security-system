@@ -22,10 +22,13 @@ public:
     explicit PWMForm(QWidget *parent = nullptr,qreal maxsize=3.3,qreal ctime=0);
     ~PWMForm();
     void refreshChart();
+
 public slots:
-    void  dealPWMData(QString data);
+    void dealPWMData(QString data);
+
 private:
     void initCharts();
+
 private:
     Ui::PWMForm *ui;
     QChart* m_Chart;

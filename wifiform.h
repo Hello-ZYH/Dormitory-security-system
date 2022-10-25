@@ -15,8 +15,11 @@ class WifiForm : public QWidget
 public:
     explicit WifiForm(QWidget *parent = nullptr);
     ~WifiForm();
+//    void writeOrder(QString order,QString id);
+
 public slots:
     void dealStm32Data(QString data);
+
 private slots:
     void on_checkBox_led1_stateChanged(int arg1);
 
@@ -29,6 +32,8 @@ private slots:
     void on_btn_humi_clicked();
 
     void on_btn_lock_clicked();
+
+    void on_btn_window_clicked();
 
     //void on_btn_light_clicked();
 
@@ -53,10 +58,12 @@ private slots:
     //void on_btn_esc_clicked();
 
     //void on_btn_select_clicked();
+
 private:
     Ui::WifiForm *ui;
     QStringList orderList;
     int type_index;
+
 signals:
     void sendOrder(QString order);
 };

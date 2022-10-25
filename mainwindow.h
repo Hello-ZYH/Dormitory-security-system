@@ -16,6 +16,7 @@
 #include "server.h"
 #include "orderthread.h"
 #include "cameraform.h"
+#include "pictureform.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -55,7 +56,8 @@ private:
     PWMForm* pwmForm;
     Server* tcpServerForm;
     OrderThread* orderThread;
-    CameraForm* cameraForm;
+    //CameraForm* cameraForm;
+    //PictureForm* pictureForm;
     QTimer* mytimer;
     QString comHelpContent,wifiHelpContent,orderHelpContent;
 

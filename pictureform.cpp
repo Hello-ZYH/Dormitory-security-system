@@ -1,65 +1,73 @@
-//#include "cameraform.h"
-//#include "ui_cameraform.h"
+//#include "pictureform.h"
+//#include "ui_pictureform.h"
 
 //#include <QtNetwork>
 //#include <QCompleter>
 
-//CameraForm::CameraForm(QWidget *parent) : QWidget(parent), ui(new Ui::CameraForm)
+//PictureForm::PictureForm(QWidget *parent) :QWidget(parent),ui(new Ui::PictureForm)
 //{
 //    ui->setupUi(this);
+
+//    //端口自动补全以及默认提示
+//    //ui->portLineEdit->setPlaceholderText(tr("6666"));//设置默认提示
+//    //QStringList portWordList;
+//    //portWordList << tr("6666");
+//    //QCompleter* portCompleter = new QCompleter(portWordList, this);
+//    //ui->portLineEdit->setCompleter(portCompleter);
+
+//    //connect(&tcpServer, SIGNAL(newConnection()),this, SLOT(acceptConnection()));
+
 
 //    ui->label1->show();
 //}
 
 
 
-//CameraForm::~CameraForm()
+//PictureForm::~PictureForm()
 //{
 //    delete ui;
 //}
 
 
 
-//void CameraForm::start()
+//void PictureForm::start()
 //{
-
-
-////    if (!tcpServer.listen(QHostAddress::LocalHost, ui->portLineEdit->text().toInt())) {
-////        qDebug() << tcpServer.errorString();
-////        close();
-////        return;
-////    }
+//    if (!tcpServer.listen(QHostAddress::LocalHost, ui->portLineEdit->text().toInt())) {
+//        qDebug() << tcpServer.errorString();
+//        close();
+//        return;
+//    }
 
 //    totalBytes = 0;
 //    bytesReceived = 0;
 //    imageSize = 0;
 //    //ui->serverStatusLabel->setText(tr("正在监听"));
-
 //}
 
 
 
-////void CameraForm::acceptConnection()
-////{
-////    //获得链接套接字
-////    tcpServerConnection = tcpServer.nextPendingConnection();
+//void PictureForm::acceptConnection()
+//{
+//    //获得链接套接字
+//    tcpServerConnection = tcpServer.nextPendingConnection();
 
-////    //接收数据
-////    //readyRead()当网络套接字上有新的网络数据有效负载时
-//////    connect(tcpServerConnection, SIGNAL(readyRead()),
-//////            this, SLOT(updateServerProgress()));
+//    //接收数据
+//    //readyRead()当网络套接字上有新的网络数据有效负载时
+//    connect(tcpServerConnection, SIGNAL(readyRead()),
+//            this, SLOT(updateServerProgress()));
+
 ////    //处理异常
-//////    connect(tcpServerConnection, SIGNAL(error(QAbstractSocket::SocketError)),
-//////            this, SLOT(displayError(QAbstractSocket::SocketError)));
+////    connect(tcpServerConnection, SIGNAL(error(QAbstractSocket::SocketError)),
+////            this, SLOT(displayError(QAbstractSocket::SocketError)));
 
-////   // ui->serverStatusLabel->setText(tr("接受连接"));
-////    // 关闭服务器，不再进行监听
-//////    tcpServer.close();
-////}
+//    //ui->serverStatusLabel->setText(tr("接受连接"));
+//    // 关闭服务器，不再进行监听
+////    tcpServer.close();
+//}
 
 
 
-//void CameraForm::dealStm32Data()
+//void PictureForm::updateServerProgress()
 //{
 //    QDataStream in(tcpServerConnection);
 //    in.setVersion(QDataStream::Qt_5_6);
@@ -72,10 +80,10 @@
 //            in >> totalBytes  >> imageSize;
 //            bytesReceived += sizeof(qint64) * 2;
 
-////            if(imageSize == 0){
-////                  //ui->serverStatusLabel->setText(tr("显示的图片为空!"));
-////            }
-////              //qDebug() <<"定位点0" << Qt::endl;
+//            if(imageSize == 0){
+//                  //ui->serverStatusLabel->setText(tr("显示的图片为空!"));
+//            }
+//              //qDebug() <<"定位点0" << endl;
 //        }
 //        if((tcpServerConnection->bytesAvailable() >= imageSize)
 //                && (imageSize != 0)) {
@@ -85,35 +93,36 @@
 
 ////            qDebug() << imageContent << endl;
 
-//           // ui->serverStatusLabel->setText(tr("接收文件 …"));
+//            //ui->serverStatusLabel->setText(tr("接收文件 …"));
 
 //            QImage imageData = getImage(imageContent);
 
 //            QPixmap resImage = QPixmap::fromImage(imageData);
 //            QPixmap* imgPointer = &resImage;
 //            imgPointer->scaled(ui->label1->size(), Qt::IgnoreAspectRatio);//重新调整图像大小以适应窗口
-//           //imgPointer->scaled(ui->imageLabel->size(), Qt::KeepAspectRatio);//设置pixmap缩放的尺寸
+//           // imgPointer->scaled(ui->imageLabel->size(), Qt::KeepAspectRatio);//设置pixmap缩放的尺寸
 
 //            ui->label1->setScaledContents(true);//设置label的属性,能够缩放pixmap充满整个可用的空间。
 //            ui->label1->setPixmap(*imgPointer);
 
 //            bytesReceived += imageSize;
 
-//           //qDebug() << "定位1  bytesReceived: " << bytesReceived << Qt::endl;
+//            //qDebug() << "定位1  bytesReceived: " << bytesReceived << endl;
 
 //            if(bytesReceived == totalBytes){
-//                // ui->serverStatusLabel->setText(tr("接收文件成功"));
+//                 //ui->serverStatusLabel->setText(tr("接收文件成功"));
 //                 totalBytes = 0;
 //                 bytesReceived = 0;
 //                 imageSize = 0;
 //            }
+
 //         }
 //     }
 //}
 
 
 
-////void CameraForm::displayError(QAbstractSocket::SocketError socketError)
+////void PictureForm::displayError(QAbstractSocket::SocketError socketError)
 ////{
 ////    qDebug() <<"errorString()" <<tcpServerConnection->errorString();
 ////    tcpServerConnection->close();
@@ -123,7 +132,7 @@
 
 
 
-//QImage CameraForm::getImage(const QString &data)
+//QImage PictureForm::getImage(const QString &data)
 //{
 //    QByteArray imageData = QByteArray::fromBase64(data.toLatin1());
 //    QImage image;
@@ -134,7 +143,7 @@
 
 
 //// 开始监听按钮
-////void CameraForm::on_startButton_clicked()
+////void PictureForm::on_startButton_clicked()
 ////{
 ////    if(ui->startButton->text() == tr("监听")){
 ////        ui->startButton->setText(tr("断开"));

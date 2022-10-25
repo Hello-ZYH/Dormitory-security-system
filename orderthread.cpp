@@ -2,13 +2,14 @@
 #include <QDebug>
 
 
+//构造函数
 OrderThread::OrderThread(QObject* parent) : QThread(parent)
 {
     //parent->writeOrderToSerialPort(order);
 }
 
 
-
+//析构函数
 OrderThread::~OrderThread()
 {
     this->quit();
@@ -67,5 +68,6 @@ Task::Task(QString order,QString id):m_order(order),m_id(id)
 
 void Task::sendData()
 {
-    //要做的任务
+//    sendOrder(QString(UsartForm::orderList.at(7)));
+//    sendOrder(QString(UsartForm::orderList.at(8)));
 }

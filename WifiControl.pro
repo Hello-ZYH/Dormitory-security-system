@@ -20,6 +20,7 @@ SOURCES += \
     mainwindow.cpp \
     mysqlform.cpp \
     orderthread.cpp \
+    pictureform.cpp \
     pwmform.cpp \
     server.cpp \
     stm32mysql.cpp \
@@ -31,6 +32,7 @@ HEADERS += \
     mainwindow.h \
     mysqlform.h \
     orderthread.h \
+    pictureform.h \
     pwmform.h \
     server.h \
     stm32mysql.h \
@@ -41,6 +43,7 @@ FORMS += \
     cameraform.ui \
     mainwindow.ui \
     mysqlform.ui \
+    pictureform.ui \
     pwmform.ui \
     server.ui \
     usartform.ui \
